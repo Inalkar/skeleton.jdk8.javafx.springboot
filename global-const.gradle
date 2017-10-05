@@ -1,0 +1,13 @@
+ext.global_config = [
+    log4j: [
+        version: '2.5'
+    ],
+    jacoco: [
+        version: '0.7.6.201602180812'
+    ],
+    checkstyle: [
+        version: '6.19',
+        config_file_path: 'config/checkstyle/inalkar.xml',
+        xsl_file_path: 'config/checkstyle/checkstyle-noframes-sorted.xsl'
+    ]
+]

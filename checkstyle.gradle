@@ -1,0 +1,16 @@
+apply plugin: 'checkstyle'
+checkstyle {
+    toolVersion = global_config.checkstyle.version
+    configFile = rootProject.file(global_config.checkstyle.config_file_path)
+}
+
+task checkstyleHtml << {
+    if (file(checkstyleMain.reports.xml.destination).exists()) {
+        ant.xslt(in: checkstyleMain.reports.xml.destination,
+                style: rootProject.file(global_config.checkstyle.xsl_file_path),
+                out: new File(checkstyleMain.reports.xml.destination.parent, 'main.html'))
+    }
+}
+
+checkstyleMain.finalizedBy checkstyleHtml
+test.dependsOn checkstyleMain

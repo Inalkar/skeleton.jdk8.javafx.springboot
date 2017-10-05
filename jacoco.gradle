@@ -1,0 +1,23 @@
+configurations {
+    jacoco {
+        description "JARs required for doing our own JacocoReport tasks"
+    }
+}
+
+dependencies {
+    jacoco "org.jacoco:org.jacoco.ant:$global_config.jacoco.version"
+}
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = global_config.jacoco.version
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacocoHtml"
+    }
+}
+test.finalizedBy(jacocoTestReport)

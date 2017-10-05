@@ -1,0 +1,107 @@
+apply from: 'global-const.gradle'
+apply from: 'local-const.gradle'
+
+group 'com.inalkar.skeleton'
+version '1.0.0'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+compileJava.options.encoding = "UTF-8"
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'com.layer', name: 'gradle-git-repo-plugin', version: '2.0.2'
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+        classpath 'org.liquibase:liquibase-gradle-plugin:1.2.1'
+        classpath 'com.h2database:h2:1.4.191'
+    }
+}
+
+/************************* liquibase *********************************************************************************/
+apply plugin: 'org.liquibase.gradle'
+
+liquibase {
+    activities {
+        local {
+            changeLogFile "$projectDir/src/main/liquibase/changelog.xml"
+            url 'jdbc:h2:~/db;FILE_LOCK=NO'
+            username 'sa'
+            password ''
+        }
+    }
+
+    runList = 'local'
+}
+
+task createAdministrationDatabaseScript {
+    group = 'database'
+    doLast {
+        def fileName = 'start-local-db'
+        if(System.properties['os.name'].startsWith('Windows')) {
+            fileName += '.bat'
+        }
+        def file = new File(projectDir, fileName)
+        file.withPrintWriter {  pw ->
+            pw.print("java -cp ${sourceSets.main.runtimeClasspath.asPath} org.h2.tools.Server")
+        }
+        file.setExecutable(true)
+    }
+}
+
+task startAdministrationDatabase(type: JavaExec) {
+    group = 'database'
+    workingDir = projectDir
+    main = 'org.h2.tools.Server'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+/************************* git-repo **********************************************************************************/
+apply plugin: 'git-repo'
+
+repositories {
+    mavenCentral()
+    git("https://github.com/Inalkar/com.inalkar.git", "com.inalkar", "master", "releases")
+}
+
+/************************* jacoco ************************************************************************************/
+apply from: 'jacoco.gradle'
+apply from: 'checkstyle.gradle'
+
+dependencies {
+    compile "org.apache.logging.log4j:log4j-core:2.5"
+    compile group: 'org.springframework', name: 'spring-core', version: '4.2.6.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.2.6.RELEASE'
+    compile group: 'com.inalkar.storage', name: 'h2-saa-driver', version: '0.2.2'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+}
+
+test {
+    // enable TestNG support (default is JUnit)
+//        useTestNG()
+
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+
+    // set heap size for the test JVM(s)
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
+
+    // set JVM arguments for the test JVM(s)
+    jvmArgs '-XX:MaxPermSize=256m'
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+}
+
+apply from: 'javafx.gradle'
