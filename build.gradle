@@ -1,23 +1,43 @@
+buildscript {
+    apply from: 'global-const.gradle'
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath group: 'com.layer', name: 'gradle-git-repo-plugin', version: '2.0.2'
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: global_config.javafx.gradle_plugin_version
+        classpath "org.liquibase:liquibase-gradle-plugin:$global_config.liquibase.gradle_plugin_version"
+        classpath "com.h2database:h2:$global_config.h2.version"
+        classpath 'net.nemerosa:versioning:2.6.1'
+    }
+}
+
+plugins {
+	id 'org.springframework.boot' version '1.5.8.RELEASE'
+}
+
 apply from: 'global-const.gradle'
 apply from: 'local-const.gradle'
 
-group 'com.inalkar.skeleton'
-version '1.0.0'
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.6'
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 
 compileJava.options.encoding = "UTF-8"
 sourceCompatibility = 1.8
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'com.layer', name: 'gradle-git-repo-plugin', version: '2.0.2'
-        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
-        classpath 'org.liquibase:liquibase-gradle-plugin:1.2.1'
-        classpath 'com.h2database:h2:1.4.191'
+apply plugin: 'net.nemerosa.versioning'
+version = "1.0.0-${versioning.info.build}"
+global_config.app.version = version
+application_properties.app.version = version
+
+processResources {
+    filesMatching('application.properties') {
+        expand(application_properties)
     }
 }
 
@@ -37,7 +57,7 @@ liquibase {
     runList = 'local'
 }
 
-task createAdministrationDatabaseScript {
+task createDatabaseScript {
     group = 'database'
     doLast {
         def fileName = 'start-local-db'
@@ -52,7 +72,7 @@ task createAdministrationDatabaseScript {
     }
 }
 
-task startAdministrationDatabase(type: JavaExec) {
+task startDatabase(type: JavaExec) {
     group = 'database'
     workingDir = projectDir
     main = 'org.h2.tools.Server'
@@ -72,11 +92,15 @@ apply from: 'jacoco.gradle'
 apply from: 'checkstyle.gradle'
 
 dependencies {
-    compile "org.apache.logging.log4j:log4j-core:2.5"
-    compile group: 'org.springframework', name: 'spring-core', version: '4.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-context', version: '4.2.6.RELEASE'
-    compile group: 'com.inalkar.storage', name: 'h2-saa-driver', version: '0.2.2'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    
+    compile group: 'com.h2database', name: 'h2', version: global_config.h2.version
+    compile group: 'org.liquibase', name: 'liquibase-core', version: global_config.liquibase.version
+    compile group: 'com.zaxxer', name: 'HikariCP', version: global_config.hikariCP.version
+
+    compile group: "de.codecentric.centerdevice", name: "javafxsvg", version: "1.2.1"
 }
 
 test {

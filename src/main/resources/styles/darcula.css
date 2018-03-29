@@ -1,3 +1,11 @@
+.root {
+    background-color: #3b3d3e;
+    background-color-dark: #313335;
+    background-color-darkest: #2b2b2b;
+    border-dark: #282828;
+    border-light: #515151;
+}
+
 .tool-bar {
     -fx-background-color: #3C3F41;
 }

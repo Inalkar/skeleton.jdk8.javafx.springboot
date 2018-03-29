@@ -1,4 +1,36 @@
+ext.application_properties = [
+    app: [
+        locale: 'en',
+        version: '1.0.0',
+        name: 'Simple JavaFX skeleton with Spring Boot',
+        copyright_company: 'inalkar.com',
+        copyright_year: '2017-2018'
+    ]
+]
+
 ext.global_config = [
+    app: [
+        group: 'com.inalkar',
+        name: 'skeleton-jdk8-jfx-boot',
+        version: application_properties.app.version
+    ],
+    javafx: [
+        gradle_plugin_version: '8.8.2'
+    ],
+    liquibase: [
+        gradle_plugin_version: '1.2.3',
+        version: '3.5.5'
+    ],
+    h2: [
+        version: '1.4.197'
+    ],
+    hikariCP: [
+        version: '2.7.2'
+    ],
+    spring: [
+        boot_version: '1.5.8.RELEASE',
+        framework_version: '4.3.12.RELEASE'
+    ],
     log4j: [
         version: '2.5'
     ],
