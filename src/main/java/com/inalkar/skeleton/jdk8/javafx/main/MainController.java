@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ public class MainController extends FXMLComponent implements Initializable {
     @FXML private Button clickBtn;
     @FXML private TextField fillTextField;
     
+    @Autowired
     public MainController(final Messages messages) {
         super();
         this.i18n = messages;

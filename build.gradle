@@ -101,6 +101,13 @@ dependencies {
     compile group: 'com.zaxxer', name: 'HikariCP', version: global_config.hikariCP.version
 
     compile group: "de.codecentric.centerdevice", name: "javafxsvg", version: "1.2.1"
+    
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
+    testCompile "org.testfx:testfx-core:4.0.13-alpha"
+    testCompile "org.testfx:testfx-spock:4.0.13-alpha"
+    testCompile 'cglib:cglib-nodep:2.2'
 }
 
 test {
