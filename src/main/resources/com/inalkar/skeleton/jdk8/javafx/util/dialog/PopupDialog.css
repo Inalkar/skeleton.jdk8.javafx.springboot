@@ -1,0 +1,20 @@
+.popup-dialog {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.popup-dialog .pane {
+    -fx-background-color: background-color;
+    -fx-background-radius: 0px;
+    -fx-border-width: 1px;
+    -fx-border-color: border-light;
+    -fx-border-radius: 0px;
+}
+
+.popup-dialog .pane .title {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.popup-dialog .pane .message {
+    -fx-font-size: 14px;
+}

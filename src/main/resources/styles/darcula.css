@@ -4,6 +4,12 @@
     background-color-darkest: #2b2b2b;
     border-dark: #282828;
     border-light: #515151;
+    text-fill-color: #BBBBBB;
+}
+
+.bordered-pane {
+    -fx-border-width: 1px;
+    -fx-border-color: border-light;
 }
 
 .tool-bar {
@@ -875,4 +881,142 @@
 }
 .debug-region-3 {
     -fx-background-color: blue;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * TabPane                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+.tab-pane {
+    -fx-tab-min-height: 1.8333em; /* 22 */
+    -fx-tab-max-height: 1.8333em; /* 22 */
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: text-fill-color;
+}
+
+.tab-pane .tab-content-area {
+    -fx-border-width: 0px 1px 1px 1px;
+    -fx-border-color: border-light;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: border-light;
+}
+
+.tab-pane .tab-header-area {
+    -fx-border-width: 0px 0px 0px 0px;
+    -fx-border-color: border-light;
+}
+
+.tab-pane .tab-header-area .headers-region .tab:selected {
+    -fx-background-color: border-light;
+    -fx-border-width: 1px 1px 0px 1px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-border-color: border-light;
+    -fx-effect: null;
+}
+
+.tab-pane .tab-header-area .headers-region .tab {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.083333em 0.5em 0.0769em 0.5em; /* 1 6 0.99 6 */
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-border-color: border-light;
+    -fx-text-fill: text-fill-color;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-color: border-dark;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:bottom:selected .focus-indicator {
+    -fx-border-insets: 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:disabled:hover {
+    -fx-color: -fx-base;
+}
+
+.tab-pane:top > .tab-header-area > .tab-header-background,
+.tab-pane:left > .tab-header-area > .tab-header-background,
+.tab-pane:bottom > .tab-header-area > .tab-header-background,
+.tab-pane:right > .tab-header-area > .tab-header-background
+{
+    -fx-background-insets: 0;
+}
+
+.tab-pane:top > .tab-header-area {
+    /*-fx-padding: 0.416667em 0.166667em 0.0em 0.416667em; *//* 5 2 0 5 */
+    -fx-padding: 0.416667em 5 0.0em 0.416667em; /* 5 2 0 5 */
+}
+
+.tab-pane:bottom > .tab-header-area {
+    -fx-padding: 0 0.166667em 0.416667em 0.416667em; /* 0 2 5 5 */
+}
+
+.tab-pane:left > .tab-header-area {
+    -fx-padding: 0.416667em 0.0em 0.166667em 0.416667em; /* 5 0 2 5 */
+}
+
+.tab-pane:right > .tab-header-area {
+    -fx-padding: 0.416667em 0.416667em 0.166667em 0.0em; /* 5 5 2 0 */
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
+    -fx-background-color: -fx-mark-color;
+    -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
+    -fx-scale-shape: false;
+    -fx-effect: dropshadow(two-pass-box , rgba(255, 255, 255, 0.4), 1, 0.0 , 0, 1);
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button:hover {
+    -fx-background-color: derive(-fx-mark-color, -30%);
+}
+
+/* CONTROL BUTTONS */
+.tab-pane > .tab-header-area > .control-buttons-tab > .container {
+    -fx-padding: 3 0 0 0;
+}
+.tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: -1 0 5 0, 0 1 6 1, 1 2 7 2;
+    -fx-padding: 4 4 9 4;
+    -fx-background-radius: 10;
+}
+.tab-pane:bottom > .tab-header-area > .control-buttons-tab > .container > .tab-down-button {
+    -fx-padding: -5 4 4 4; /* TODO convert to ems */
+}
+/* FLOATING TABS CUSTOMISATION */
+.tab-pane.floating > .tab-header-area > .tab-header-background {
+    -fx-background-color: null;
+}
+.tab-pane.floating > .tab-header-area {
+    -fx-background-color: null;
+}
+.tab-pane.floating > .tab-content-area {
+    -fx-background-color: -fx-outer-border, -fx-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 2, 0;
+    -fx-padding: 2;
 }

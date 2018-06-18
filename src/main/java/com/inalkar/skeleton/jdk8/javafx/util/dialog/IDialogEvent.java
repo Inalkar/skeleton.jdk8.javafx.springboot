@@ -1,4 +1,4 @@
-package com.inalkar.skeleton.jdk8.javafx.util.dialog.event;
+package com.inalkar.skeleton.jdk8.javafx.util.dialog;
 
 @FunctionalInterface
 public interface IDialogEvent {
