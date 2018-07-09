@@ -54,5 +54,5 @@ class ErrorDialogImpl extends DialogBase<ErrorDialog> implements ErrorDialog {
     ErrorDialog getThis() {
         return this;
     }
-    
+
 }

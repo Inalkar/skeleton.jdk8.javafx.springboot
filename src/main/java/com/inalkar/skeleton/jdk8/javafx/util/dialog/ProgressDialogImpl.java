@@ -19,7 +19,7 @@ public class ProgressDialogImpl extends DialogBase<ProgressDialog> implements Pr
     @FXML private Label titleLabel;
     @FXML private Label textLabel;
     @FXML private ProgressBar progressBar;
-    
+
     private StringProperty messageProperty = new SimpleStringProperty();
     private AtomicInteger counter = new AtomicInteger();
     private PauseTransition delayTimer = new PauseTransition(Duration.seconds(1));

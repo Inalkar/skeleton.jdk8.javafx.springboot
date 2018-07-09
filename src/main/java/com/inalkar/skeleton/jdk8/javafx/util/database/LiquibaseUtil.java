@@ -44,6 +44,7 @@ public class LiquibaseUtil {
         Connection c = DriverManager.getConnection(url, userName, password);
         updateSchema(c);
     }
+
     public void updateSchema(final Connection connection) throws LiquibaseException, SQLException {
         LOGGER.info("Updating database schema");
 

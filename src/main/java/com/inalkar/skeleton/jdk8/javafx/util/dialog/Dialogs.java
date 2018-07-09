@@ -15,7 +15,7 @@ import static com.inalkar.skeleton.jdk8.javafx.Application.MAIN_STYLE;
 
 public class Dialogs {
 
-    public static InfoDialogImpl infoPopup() {
+    public static InfoDialog infoPopup() {
         return new InfoDialogImpl();
     }
 
@@ -30,7 +30,7 @@ public class Dialogs {
     public static ErrorDialog errorPopup() {
         return new ErrorDialogImpl();
     }
-    
+
     public static ProgressDialog progressPopup() {
         return new ProgressDialogImpl();
     }

@@ -21,9 +21,7 @@ public abstract class AbstractJavaFxApplicationSupport extends javafx.applicatio
     @Override
     public void init() throws Exception {
         setPreloaderProgress(PreloaderProgress.START_INIT);
-        
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> LOGGER.error("Uncaught Exception in thread: " + t, e));
-        
         setPreloaderProgress(PreloaderProgress.SPRING_START_INIT);
         try {
             ConfigurableApplicationContext context = SpringApplication.run(getClass(), savedArgs);

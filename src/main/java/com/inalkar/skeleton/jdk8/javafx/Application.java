@@ -4,7 +4,7 @@ import com.inalkar.skeleton.jdk8.javafx.main.MainWindow;
 import com.inalkar.skeleton.jdk8.javafx.preloader.ApplicationPreloader;
 import com.inalkar.skeleton.jdk8.javafx.preloader.PreloaderProgress;
 import com.inalkar.skeleton.jdk8.javafx.util.database.LiquibaseUtil;
-import com.inalkar.skeleton.jdk8.javafx.util.dialog.ErrorDialogsUtil;
+import com.inalkar.skeleton.jdk8.javafx.util.dialog.Dialogs;
 import javafx.application.Platform;
 import javafx.application.Preloader;
 import javafx.stage.Stage;
@@ -33,13 +33,10 @@ public class Application extends AbstractJavaFxApplicationSupport {
 
     @Autowired
     private LiquibaseUtil liquibaseUtil;
-    
-    @Autowired
-    private ErrorDialogsUtil errorDialogsUtil;
-    
+
     @Autowired
     private MainWindow mainWindow;
-    
+
     @Override
     public void start(final Stage stage) {
         CompletableFuture
@@ -50,7 +47,7 @@ public class Application extends AbstractJavaFxApplicationSupport {
             } catch (LiquibaseException | SQLException e) {
                 LOGGER.error("Error updating database schema", e);
                 Platform.runLater(() -> {
-                    errorDialogsUtil.exceptionDialog("Error updating database schema", e);
+                    Dialogs.exceptionDialog("Error updating database schema", e);
                     System.exit(0);
                 });
             }
@@ -60,7 +57,7 @@ public class Application extends AbstractJavaFxApplicationSupport {
             List<String> params = getParameters().getUnnamed();
             mainWindow.setPrimaryStage(stage);
             Platform.runLater(() -> mainWindow.showMainWindow(params));
-            
+
             setPreloaderProgress(PreloaderProgress.DONE);
             notifyPreloader(new Preloader.StateChangeNotification(BEFORE_START));
         });

@@ -1,7 +1,7 @@
 package com.inalkar.skeleton.jdk8.javafx.main;
 
 import com.inalkar.skeleton.jdk8.javafx.config.Messages;
-import com.inalkar.skeleton.jdk8.javafx.util.dialog.ErrorDialogsUtil;
+import com.inalkar.skeleton.jdk8.javafx.util.dialog.Dialogs;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
@@ -21,14 +21,11 @@ public class MainWindow {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainWindow.class);
     private static Stage windowStage;
 
-    @Autowired 
-    private Messages i18n;
-    
     @Autowired
-    private MainController mainController;
+    private Messages i18n;
 
     @Autowired
-    private ErrorDialogsUtil errorDialogsUtil;
+    private MainController mainController;
 
     public void setPrimaryStage(final Stage stage) {
         MainWindow.windowStage = stage;
@@ -53,7 +50,7 @@ public class MainWindow {
             windowStage.show();
         } catch (RuntimeException e) {
             LOGGER.error("An exception occurred while loading main window: " + e.getMessage(), e);
-            Platform.runLater(() -> errorDialogsUtil.exceptionDialog(e));
+            Platform.runLater(() -> Dialogs.exceptionDialog(e));
             System.exit(0);
         }
     }

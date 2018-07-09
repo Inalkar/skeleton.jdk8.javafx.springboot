@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 public class FileSystemUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemUtil.class);
-    
+
     public static Path getApplicationPath() {
         try {
             URL location = FileSystemUtil.class.getProtectionDomain().getCodeSource().getLocation();

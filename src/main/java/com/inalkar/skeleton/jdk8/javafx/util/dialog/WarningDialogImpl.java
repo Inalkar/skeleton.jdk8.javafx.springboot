@@ -11,7 +11,7 @@ class WarningDialogImpl extends DialogBase<WarningDialog> implements WarningDial
     @FXML private Label titleLabel;
     @FXML private Label textLabel;
     @FXML private Button okButton;
-    
+
     WarningDialogImpl() {
         super();
         load();

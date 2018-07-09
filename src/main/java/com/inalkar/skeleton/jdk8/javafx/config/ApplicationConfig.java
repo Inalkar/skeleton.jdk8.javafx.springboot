@@ -15,7 +15,7 @@ public class ApplicationConfig {
     public ApplicationConfig() {
         super();
     }
-    
+
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
